@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta author="sanne">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+          
+    <title>Humpty</title>
+</head>
+
+<body>
+    <main>
+        <h1>Humpty</h1>
+        <article></article>
+    </main>
+    
+    <form> 
+        <h2>Style me!</h2>
+        
+        <fieldset>
+            <legend>Humptie's kleur</legend>
+            <div>
+                <input type="radio" name="data-humptieColor" value="Crimson" id="humptieColorCrimson" checked>
+                <label for="humptieColorCrimson">Rood</label>
+                
+                <input type="radio" name="data-humptieColor" value="ForestGreen" id="humptieColorForestGreen">
+                <label for="humptieColorForestGreen">Groen</label>
+                
+                <input type="radio" name="data-humptieColor" value="DodgerBlue" id="humptieColorDodgerBlue">
+                <label for="humptieColorDodgerBlue">Blauw</label>  
+                
+                <input type="radio" name="data-humptieColor" value="DimGray" id="humptieColorDimGray">
+                <label for="humptieColorDimGray">Grijs</label>  
+            </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Humptie's benen</legend>
+            <div>
+                <input type="radio" name="data-humptieLegs" value="Feet" id="humptieLegsFeet" checked>
+                <label for="humptieLegsFeet">Voeten</label>
+                
+                <input type="radio" name="data-humptieLegs" value="Tripod" id="humptieLegsTripod">
+                <label for="humptieLegsTripod">Tripod</label>
+                
+                <input type="radio" name="data-humptieLegs" value="Squid" id="humptieLegsSquid">
+                <label for="humptieLegsSquid">Octo</label>  
+                
+                <input type="radio" name="data-humptieLegs" value="Tank" id="humptieLegsTank">
+                <label for="humptieLegsTank">Tankje</label>
+            </div>
+            
+        </fieldset>
+        
+        <button type="submit">OK</button>
+        
+    </form>
+    
+    <aside>
+        <input type="radio" name="data-interaction" value="topBottom" id="interactionTopBottom" checked>
+        <label for="interactionTopBottom">van boven</label>
+
+        <input type="radio" name="data-interaction" value="leftRight" id="interactionLeftRight">
+        <label for="interactionLeftRight">van links</label>
+
+        <input type="radio" name="data-interaction" value="fancy" id="interactionFancy">
+        <label for="interactionFancy">fancy sh*t</label>  
+    </aside>
+    
+    <script src="js/script.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,591 @@
+/***************/
+/* BASIC STUFF */
+/***************/
+@import url('https://fonts.googleapis.com/css?family=Saira:400,700&display=swap');
+
+*, *::before, *::after {
+    box-sizing:border-box;
+}
+html {
+    height:100%;
+}
+
+body {
+    height:100%;
+    margin:0;
+    padding-top: 4em;
+    font-family:Saira, sans-serif;
+    background-color:#cccccc;                    
+}
+
+h1 {
+    margin:0;
+    text-align:center;
+}
+
+/******************/
+/* YOUR CODE HERE */
+   
+form{
+    position:fixed;
+    width:100%;
+    left:0; top:0; 
+    
+    background-color:rgba(179,179,179,.95);
+    
+    transform:translateY(-100%);
+    transition:1s;
+    z-index:10;
+}
+
+body.stylePanelVisible form {
+    transform:translateY(0);
+}
+
+h2 {
+    position:absolute;
+    width:7em;
+    line-height:2em;
+    left:calc(50% - 3.5rem); bottom:-2em; 
+    margin:0; 
+    
+    font-size:1em;
+    font-weight:normal;
+    text-align:center;
+    background-color:rgba(179,179,179,.95);
+    
+    cursor:pointer;
+    transition:1s;
+}
+
+/* left to right */
+body[data-interaction="leftRight"] form { 
+    width:calc(100% - 3em); height:100%; max-width:24em;
+    transform:translateX(-100%);
+}
+
+body[data-interaction="leftRight"].stylePanelVisible form {
+    transform:translateX(0);
+}
+
+body[data-interaction="leftRight"] h2 {
+    width:auto; height:7em;
+    line-height:2em;
+    left:100%; top:3.5em;
+    writing-mode: vertical-rl;
+}
+
+/* fancy */
+body[data-interaction="fancy"] form { 
+    height:100%; 
+    max-width:24em;
+    padding-bottom:2em;
+    transform-origin:left bottom;
+    transform:rotate(-90deg);
+    transition:1s;
+}
+
+body[data-interaction="fancy"].stylePanelVisible form {
+    transform:rotate(0);
+}
+
+body[data-interaction="fancy"] h2 {
+    width:7em; height:auto;
+    line-height:2em;
+    left:0; bottom:0;    
+    transform:translate(5.25em, 2em);
+    transition:1s;
+}
+
+body[data-interaction="fancy"].stylePanelVisible h2 {
+    padding-left:.5em;
+    transform:translate(calc(50vw - 3.5em), -1.75em);
+}
+
+@media screen and (min-width:24em) {
+    body[data-interaction="fancy"].stylePanelVisible h2 {
+        transform:translate(calc(12em - 3.5em), -1.75em);
+    }
+}
+
+body[data-interaction="fancy"] h2::before,
+body[data-interaction="fancy"] h2::after {
+    content:"";
+    position:absolute;
+    width:.8em; height:.1em;
+    left:.6em; top:.95em;
+    background-color:transparent;
+    transform:rotate(0) scale(0);
+    transition:2s;
+}
+    
+body[data-interaction="fancy"].stylePanelVisible h2::before {
+    background-color:Crimson;
+    transform:rotate(585deg) scale(1);
+}
+
+body[data-interaction="fancy"].stylePanelVisible h2::after {
+    background-color:Crimson;
+    transform:rotate(-585deg) scale(1);
+}
+
+/* END OF YOUR CODE */
+/********************/
+
+
+
+/*****************************************************/
+/*****************************************************/
+/**                                                 **/
+/**     styling for humpty & the form controls      **/
+/**  no need to check it out - it's allowed though  **/
+/**                                                 **/
+/*****************************************************/
+/*****************************************************/
+
+/************/
+/* THE FORM */
+/************/
+
+/* to group the two sets of options */
+fieldset {
+    --humptieSize:3.5rem;
+    position:relative;
+    max-width:36em;
+    margin:0 auto;
+    padding:0;
+    border:none;
+}
+
+/* postion:absolute is necessary for cross-browser consistency */
+legend {
+    position:absolute;
+    width:100%;
+    left:0; top:0;
+    margin:0; padding:0;
+    font-size:1.5em;
+    line-height:var(--humptieSize);
+    text-align:center;
+}
+
+/* div is necessary - flex does not work on fieldset (yet) */
+fieldset div {
+    margin:0 ;
+    padding:var(--humptieSize) 0 calc(var(--humptieSize) / 2);
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(8.5em, 1fr));
+}
+
+fieldset + fieldset div {
+    border-top:solid 1px rgba(153,153,153,.75);
+}
+
+/* the form controls */
+input, button {
+    position:absolute;
+    width:0; height:0;
+    opacity:0;
+}
+
+form label {
+    position:relative;
+    display:block;
+    
+    line-height:calc(var(--humptieSize) * 1.5);
+    padding-left:calc(var(--humptieSize) * 1.25 + .375em);
+
+    transition:.5s;
+    cursor:pointer;
+}
+
+form fieldset input:checked + label {
+    background-color:rgba(153,153,153,.75);
+}
+
+form fieldset input:focus-visible + label {
+    text-decoration:underline;
+}
+
+
+/************/
+/* HUMPTIES */
+/************/
+
+/* humptie's container */
+article {
+    --humptieSize:calc(100% / 1.5);
+    display:block;
+    position:relative;
+    width:90vw; height:90vw;
+    max-width:24em; max-height:24em;
+    margin:0 auto;
+}
+
+/* humptie's body */
+body,
+form [value="Crimson"] + label {
+    --legsColor:Crimson;
+    --bodyColor:Gold;
+}
+
+body[data-humptiecolor="DodgerBlue"],
+form [value="DodgerBlue"] + label {
+    --legsColor:DodgerBlue;
+}
+
+body[data-humptiecolor="ForestGreen"],
+form [value="ForestGreen"] + label {
+    --legsColor:ForestGreen;
+}
+
+body[data-humptiecolor="DimGray"],
+form [value="DimGray"] + label { 
+    --legsColor:DimGray;
+}
+
+form label::after,
+article::after {
+    content:"";
+    position:absolute;
+    width:var(--humptieSize); height:var(--humptieSize);
+    left:calc(var(--humptieSize)/4); top:calc(var(--humptieSize)/4);
+    
+    background-image:
+        linear-gradient(-153deg, transparent 50%, white 50%),
+        radial-gradient(var(--bodyColor) 70%,transparent 70%),
+        radial-gradient(white 70%,transparent 70%),
+        linear-gradient(-153deg, transparent 50%, white 50%),
+        radial-gradient(var(--bodyColor) 70%,transparent 70%),
+        radial-gradient(white 70%,transparent 70%),
+        linear-gradient(to bottom,DarkOrange 0%,var(--bodyColor) 30%, var(--bodyColor) 80%, var(--legsColor) 80%);
+    background-size:
+        10% 10%,
+        20% 20%,
+        40% 40%,
+        10% 10%,
+        20% 20%,
+        40% 40%,
+        cover;
+    background-repeat:
+        no-repeat;
+    background-position:
+        17.5% 43%,
+        20% 45%,
+        20% 50%,
+        57.5% 43%,
+        64.8% 45%,
+        80% 50%,
+        center;
+    border-radius:50%;
+}
+
+/* humptie's legs - default/feet */
+form label::before,
+article::before {
+    content:"";
+    position:absolute;
+    left:calc(var(--humptieSize)/4); top:calc(var(--humptieSize) * 1.2);
+    width:var(--humptieSize); height:calc(var(--humptieSize)/4);
+    
+    background-image:
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        linear-gradient(var(--legsColor) 50%, var(--legsColor));
+    background-size:
+        5% 100%,
+        5% 100%,
+        30% 40%,
+        30% 40%;
+    background-repeat:
+        no-repeat;
+    background-position:
+        40% bottom,
+        60% bottom,
+        18% bottom,
+        82% bottom;
+}
+
+/* tripod */
+form [value="Tripod"] + label::before,
+body[data-humptielegs="Tripod"] form fieldset:first-of-type label::before,
+body[data-humptielegs="Tripod"] article::before {
+    transform-origin:center -180%;
+    transform:rotate(-180deg);
+    
+    background-image:
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        linear-gradient(var(--legsColor) 50%, var(--legsColor)),
+        radial-gradient(var(--legsColor) 70%, transparent 70%),
+        radial-gradient(var(--legsColor) 70%, transparent 70%),
+        radial-gradient(var(--legsColor) 70%, transparent 70%);
+    background-size:
+        5% 90%,
+        5% 80%,
+        5% 90%,
+        12.5% 50%,
+        12.5% 50%,
+        12.5% 50%;
+    background-position:
+        35% top,
+        50% top,
+        65% top,
+        34% 99%,
+        50% 80%,
+        66% 99%;
+}
+
+/* squid */
+[value="Squid"] + label::before,
+body[data-humptielegs="Squid"] form fieldset:first-of-type label::before,
+body[data-humptielegs="Squid"] article::before {
+    background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1133.9 283.5"><path d="M816.4-283.5c-107.8,0-201.5,60.2-249.4,148.7c-48-88.5-141.7-148.7-249.5-148.7C160.9-283.5,34-156.6,34,0s126.9,283.5,283.5,283.5c107.8,0,201.5-60.2,249.4-148.7c47.9,88.6,141.7,148.7,249.4,148.7c156.6,0,283.5-126.9,283.5-283.5S972.9-283.5,816.4-283.5z M197.8,130.6c-72,0-130.4-58.4-130.4-130.3S125.7-130,197.7-130S328.1-71.7,328.1,0.3S269.7,130.6,197.8,130.6z M936.1,130.7c-72.1,0-130.4-58.4-130.4-130.4s58.4-130.4,130.4-130.4s130.4,58.3,130.4,130.4S1008.1,130.7,936.1,130.7z" fill="Crimson"/></svg>');
+    background-size: cover;
+}
+
+body[data-humptiecolor="DodgerBlue"] [value="Squid"] + label::before,
+body[data-humptielegs="Squid"] form fieldset:first-of-type [value="DodgerBlue"] + label::before,
+body[data-humptielegs="Squid"][data-humptiecolor="DodgerBlue"] article::before{
+    background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1133.9 283.5"><path d="M816.4-283.5c-107.8,0-201.5,60.2-249.4,148.7c-48-88.5-141.7-148.7-249.5-148.7C160.9-283.5,34-156.6,34,0s126.9,283.5,283.5,283.5c107.8,0,201.5-60.2,249.4-148.7c47.9,88.6,141.7,148.7,249.4,148.7c156.6,0,283.5-126.9,283.5-283.5S972.9-283.5,816.4-283.5z M197.8,130.6c-72,0-130.4-58.4-130.4-130.3S125.7-130,197.7-130S328.1-71.7,328.1,0.3S269.7,130.6,197.8,130.6z M936.1,130.7c-72.1,0-130.4-58.4-130.4-130.4s58.4-130.4,130.4-130.4s130.4,58.3,130.4,130.4S1008.1,130.7,936.1,130.7z" fill="DodgerBlue"/></svg>');
+}
+
+body[data-humptiecolor="ForestGreen"] [value="Squid"] + label::before,
+body[data-humptielegs="Squid"] form fieldset:first-of-type [value="ForestGreen"] + label::before,
+body[data-humptielegs="Squid"][data-humptiecolor="ForestGreen"] article::before{
+    background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1133.9 283.5"><path d="M816.4-283.5c-107.8,0-201.5,60.2-249.4,148.7c-48-88.5-141.7-148.7-249.5-148.7C160.9-283.5,34-156.6,34,0s126.9,283.5,283.5,283.5c107.8,0,201.5-60.2,249.4-148.7c47.9,88.6,141.7,148.7,249.4,148.7c156.6,0,283.5-126.9,283.5-283.5S972.9-283.5,816.4-283.5z M197.8,130.6c-72,0-130.4-58.4-130.4-130.3S125.7-130,197.7-130S328.1-71.7,328.1,0.3S269.7,130.6,197.8,130.6z M936.1,130.7c-72.1,0-130.4-58.4-130.4-130.4s58.4-130.4,130.4-130.4s130.4,58.3,130.4,130.4S1008.1,130.7,936.1,130.7z" fill="ForestGreen"/></svg>');
+}
+
+body[data-humptiecolor="DimGray"] [value="Squid"] + label::before,
+body[data-humptielegs="Squid"] form fieldset:first-of-type [value="DimGray"] + label::before,
+body[data-humptielegs="Squid"][data-humptiecolor="DimGray"] article::before{
+    background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1133.9 283.5"><path d="M816.4-283.5c-107.8,0-201.5,60.2-249.4,148.7c-48-88.5-141.7-148.7-249.5-148.7C160.9-283.5,34-156.6,34,0s126.9,283.5,283.5,283.5c107.8,0,201.5-60.2,249.4-148.7c47.9,88.6,141.7,148.7,249.4,148.7c156.6,0,283.5-126.9,283.5-283.5S972.9-283.5,816.4-283.5z M197.8,130.6c-72,0-130.4-58.4-130.4-130.3S125.7-130,197.7-130S328.1-71.7,328.1,0.3S269.7,130.6,197.8,130.6z M936.1,130.7c-72.1,0-130.4-58.4-130.4-130.4s58.4-130.4,130.4-130.4s130.4,58.3,130.4,130.4S1008.1,130.7,936.1,130.7z" fill="DimGray"/></svg>');
+}
+
+/* tankje */
+[value="Tank"] + label::before,
+body[data-humptielegs="Tank"] form fieldset:first-of-type label::before,
+body[data-humptielegs="Tank"] article::before {
+    transform-origin:center bottom;
+    transform:scaleY(1.5);
+    
+    background-image:
+        radial-gradient(transparent 35%, var(--legsColor) 35%, var(--legsColor) 70%, transparent 70%),
+        radial-gradient(transparent 31.5%, var(--legsColor) 31.5%, var(--legsColor) 70%, transparent 70%),
+        radial-gradient(transparent 35%, var(--legsColor) 35%, var(--legsColor) 70%, transparent 70%);
+    background-size:
+        30% 80%,
+        27% 72%,
+        30% 80%;
+    background-position:
+        20% bottom,
+        50% bottom,
+        80% bottom;
+}
+
+
+/***********************/
+/* INTERACTION OPTIONS */
+/***********************/
+aside {
+    position:absolute;
+    width:100%;
+    left:0; bottom:1em;
+    opacity:.05;
+    transition:.5s;
+    
+    display:flex;
+    justify-content:center;
+}
+
+aside:hover {
+    opacity:1;
+}
+
+aside label {
+    padding:0 .5em;
+    text-align:center;
+    filter:grayscale(1);
+    transition:1s;
+}
+
+aside label::before {
+    content:"\1F447";
+    display:block;
+    font-size:2em;
+    line-height:.9em;
+}
+
+#interactionLeftRight + label::before {
+    content:"\1F449";
+}
+
+#interactionFancy + label::before {
+    content:"\1F4A9";
+}
+
+aside :checked + label {
+    filter:grayscale(0);
+}
+
+aside :focus-visible + label {
+    text-decoration:underline;
+}
+
+@media screen and (min-width:72em) {
+    body,
+    body[data-interaction="leftRight"],
+    body[data-interaction="fancy"] {
+        padding-left:24em;
+    }
+    
+    form,
+    body[data-interaction="leftRight"] form,
+    body[data-interaction="fancy"] form {
+        position:absolute;
+        top:0; left:0; right:0; bottom:0;
+        padding-top:0;
+        width:24em; height:100%;
+        transform:none;
+    }
+    
+    h2,
+    body[data-interaction="leftRight"] h2,
+    body[data-interaction="fancy"] h2,
+    body[data-interaction="fancy"].stylePanelVisible h2 {
+        position:static;
+        width:auto; height:auto;
+        line-height:5.25em;
+        text-align:center;
+        background-color:rgba(153,153,153,.75);
+        transform:none;
+        writing-mode:horizontal-tb;
+        cursor:default;
+    }
+    
+    body[data-interaction="fancy"] h2::before,
+    body[data-interaction="fancy"] h2::after {
+        display:none;
+    }
+    
+    fieldset {
+        height:auto;
+        overflow:hidden;
+        opacity:1;
+    }
+    
+    aside {
+        /*display:none;*/
+    }
+
+}
+
+
+/*
+@media screen and (prefers-reduced-motion: reduce) { 
+    body,
+    body[data-interaction="leftRight"],
+    body[data-interaction="fancy"] {
+        background:#dddddd;
+    }
+    
+    form,
+    body[data-interaction="leftRight"] form,
+    body[data-interaction="fancy"] form {
+        transform:none;
+        background-color:transparent;
+        padding-top:4em;
+    }
+    
+    h2,
+    body[data-interaction="leftRight"] h2,
+    body[data-interaction="fancy"] h2,
+    body[data-interaction="fancy"].stylePanelVisible h2 {
+        position:absolute;
+        top:0; bottom:auto;
+    }
+    
+    fieldset {
+        height:0;
+        overflow:hidden;
+        opacity:0;
+    }
+    
+    .stylePanelVisible form {
+        height:100%;
+        animation:showForm .5s forwards;
+    }
+    
+    .stylePanelVisible fieldset {
+        height:auto;
+        animation:showFieldSet .5s forwards;
+    }
+    
+    @keyframes showForm{
+        from{
+            background-color:transparent;
+        }
+        to{
+            background-color:#cccccc;
+        }
+    }
+    @keyframes showFieldSet{
+        from{
+            opacity:0;
+        }
+        to{
+            opacity:1;
+        }
+    }
+}
+
+
+@media screen and (min-width:72em),
+@media screen and (min-width:72em) and (prefers-reduced-motion: reduce){
+    body,
+    body[data-interaction="leftRight"],
+    body[data-interaction="fancy"] {
+        padding-left:24em;
+    }
+    
+    form,
+    body[data-interaction="leftRight"] form,
+    body[data-interaction="fancy"] form {
+        position:absolute;
+        top:0; left:0; right:0; bottom:0;
+        padding-top:0;
+        width:24em; height:100%;
+        transform:none;
+        background-color:#cccccc;
+    }
+    
+    h2,
+    body[data-interaction="leftRight"] h2,
+    body[data-interaction="fancy"] h2,
+    body[data-interaction="fancy"].stylePanelVisible h2 {
+        position:static;
+        width:auto; height:auto;
+        line-height:5.25em;
+        text-align:center;
+        background-color:rgba(153,153,153,.75);
+        transform:none;
+        writing-mode:horizontal-tb;
+        cursor:default;
+    }
+    
+    body[data-interaction="fancy"] h2::before,
+    body[data-interaction="fancy"] h2::after {
+        display:none;
+    }
+    
+    fieldset {
+        height:auto;
+        overflow:hidden;
+        opacity:1;
+    }
+    
+    aside {
+        /*display:none;*/
+    }
+
+}
